@@ -65,9 +65,14 @@ def get_higest_ratio_item(token, proxies=None):
             card_name = card["name"]
             card_price = card["upgrade_cost"]
             card_profit = card["farming_upgrade"]
+            is_available = card["is_available"]
             ratio = float(card_profit) / float(card_price)
 
-            if int(card_price) <= int(balance) and ratio > highest_ratio:
+            if (
+                int(card_price) <= int(balance)
+                and ratio > highest_ratio
+                and is_available
+            ):
                 highest_ratio = ratio
                 highest_ratio_item = {
                     "category": category_name,
