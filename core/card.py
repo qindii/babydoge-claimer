@@ -107,6 +107,7 @@ def process_buy_card(token, proxies=None):
                 )
             except Exception as e:
                 base.log(f"{base.white}Auto Buy Card: {base.red}Error - {e}")
+                break
         else:
             base.log(
                 f"{base.white}Auto Buy Card: {base.red}Not enough coin to buy card"
