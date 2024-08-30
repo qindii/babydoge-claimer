@@ -19,7 +19,7 @@ def get_task(token, proxies=None):
 
 
 def claim_task(token, channel_id, proxies=None):
-    url = "https://backend.babydogepawsbot.com/channels"
+    url = "https://backend.babydogepawsbot.com/channels-resolve"
     payload = {"channel_id": channel_id}
 
     try:
@@ -42,8 +42,8 @@ def process_do_task(token, proxies=None):
         for channel in channels:
             channel_id = channel["id"]
             channel_title = channel["title"]
-            channel_status = channel["is_available"]
-            if channel_status:
+            is_resolved = channel["is_resolved"]
+            if not is_resolved:
                 claim = claim_task(token=token, channel_id=channel_id, proxies=proxies)
                 if claim:
                     claim_status = claim["is_reward"]
@@ -51,7 +51,7 @@ def process_do_task(token, proxies=None):
                         base.log(f"{base.white}{channel_title}: {base.green}Completed")
                     else:
                         base.log(
-                            f"{base.white}{channel_title}: {base.red}Incomplete (please do by yourself)"
+                            f"{base.white}{channel_title}: {base.red}Incomplete (please do by yourself or wait for task updated)"
                         )
                 else:
                     base.log(f"{base.white}{channel_title}: {base.red}Claim error")
